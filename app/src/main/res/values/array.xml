@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="location_array">
+        <item>שער אפריים</item>
+        <item>תנובות</item>
+        <item>ינוב</item>
+        <item>גאולים</item>
+        <item>צור משה</item>
+        <item>גנות הדר</item>
+        <item>נורדיה</item>
+        <item>עזריאל</item>
+        <item>יעף</item>
+        <item>עין - ורד</item>
+        <item>עין שריד</item>
+        <item>חרות</item>
+        <item>משמרת</item>
+        <item>פרדסיה</item>
+        <item>כפר הס</item>
+        <item>ניצני עוז</item>
+    </string-array>
+</resources>
