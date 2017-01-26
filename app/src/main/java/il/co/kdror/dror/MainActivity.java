@@ -14,6 +14,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity
@@ -24,6 +26,7 @@ public class MainActivity extends AppCompatActivity
     final static String ID_PREF = "_ID_Pref";
     final static String LOCATION_PREF = "_LOCATION_Pref";
     final static String PHONE_PREF = "_PHONE_Pref";
+    final static String STUDENT_PREF = "_STUDENT_Pref";
 
 
     @Override
@@ -34,6 +37,9 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+        Student student = Student.Deserialze(settings.getString(STUDENT_PREF, null));
+
+        if (student == null) student =  new Student("Err", "Err", "Err", "Err");
 
         if (settings.getBoolean(FIRST_TIME, true)) {
             //the app is being launched for first time, do something
@@ -62,10 +68,22 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        TextView navName = (TextView) findViewById(R.id.nav_name);
-        TextView navId = (TextView) findViewById(R.id.nav_id);
-        navName.setText(settings.getString(NAME_PREF, "Name"));
-        navId.setText(settings.getString(ID_PREF, "312431252"));
+        View headerView = navigationView.getHeaderView(0);
+        TextView navName = (TextView) headerView.findViewById(R.id.nav_name);
+        TextView navId = (TextView) headerView.findViewById(R.id.nav_id);
+        navName.setText(student.GetName());
+        navId.setText(student.GetId());
+        WebView webView = (WebView) findViewById(R.id.webview);
+        webView.setWebViewClient(new WebViewClient() {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                // This line right here is what you're missing.
+                // Use the url provided in the method.  It will match the member URL!
+                view.loadUrl(url);
+                return true;
+            }
+        });
+        webView.loadUrl("https://www.google.com");
     }
 
     @Override

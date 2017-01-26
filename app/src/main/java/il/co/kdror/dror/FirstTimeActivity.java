@@ -79,10 +79,15 @@ public class FirstTimeActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (idErr.getVisibility() == View.GONE && nameErr.getVisibility() == View.GONE) {
                     SharedPreferences settings = getSharedPreferences(MainActivity.PREFS_NAME, 0);
-                    settings.edit().putString(MainActivity.ID_PREF, id.getText().toString()).apply();
-                    settings.edit().putString(MainActivity.NAME_PREF, name.getText().toString()).apply();
-                    settings.edit().putString(MainActivity.LOCATION_PREF, getResources().getStringArray(R.array.location_array)[spinner.getSelectedItemPosition()]).apply();
-                    settings.edit().putString(MainActivity.PHONE_PREF, phone.getText().toString()).apply();
+                    //settings.edit().putString(MainActivity.ID_PREF, id.getText().toString()).apply();
+                    //settings.edit().putString(MainActivity.NAME_PREF, name.getText().toString()).apply();
+                    //settings.edit().putString(MainActivity.LOCATION_PREF, getResources().getStringArray(R.array.location_array)[spinner.getSelectedItemPosition()]).apply();
+                    //settings.edit().putString(MainActivity.PHONE_PREF, phone.getText().toString()).apply();
+
+                    Student student = new Student(id.getText().toString(), name.getText().toString(), getResources().getStringArray(R.array.location_array)[spinner.getSelectedItemPosition()], phone.getText().toString());
+
+                    settings.edit().putString(MainActivity.STUDENT_PREF, student.Serialze()).apply();
+                    finish();
                 }
             }
         });
